@@ -1,13 +1,28 @@
-# BiasVariance
+# Bias-variance decomposition in Lean 4
 
-## GitHub configuration
+Authors: Henry O'Connor, Ari Aceves, Nick Pierce, Milena Yared
 
-To set up your new GitHub repository, follow these steps:
+**Goal.** Formalize the bias-variance decomposition of mean squared error.
 
-* Under your repository name, click **Settings**.
-* In the **Actions** section of the sidebar, click "General".
-* Check the box **Allow GitHub Actions to create and approve pull requests**.
-* Click the **Pages** section of the settings sidebar.
-* In the **Source** dropdown menu, select "GitHub Actions".
+**Main result** (`BiasVariance.bias_variance` in `BiasVariance/Basic.lean`): for a
+probability space `(Ω, μ)`, an estimator `X : Ω → ℝ` with `MemLp X 2 μ`, and a
+parameter `θ : ℝ`,
 
-After following the steps above, you can remove this section from the README file.
+    E[(X - θ)^2] = Var(X) + (E[X] - θ)^2.
+
+Corollaries: `mse_eq_variance_of_unbiased`, `variance_le_mse`.
+
+**External inputs.** No additional external axioms are used beyond the stated
+theorem hypotheses and the standard Lean/mathlib foundations.
+
+**Files.** All the mathematics is in `BiasVariance/Basic.lean`.
+`BiasVariance.lean` just imports it. `lean-toolchain` and `lake-manifest.json`
+pin the Lean and mathlib versions.
+
+**Build.**
+1. Install Lean via elan: https://lean-lang.org/install/
+2. In the project folder, run:
+```
+lake exe cache get
+lake build
+```
